@@ -3,11 +3,11 @@ const { chromium } = require('playwright');
 const seeds = [63, 64, 65, 66, 67, 68, 69, 70, 71, 72];
 
 async function scrapeTable(page, seed) {
-    const url = `https://sanand0.github.io/tdsdata/?seed=${seed}`;
+    const url = `https://sanand0.github.io/tdsdata/js_table/?seed=${seed}`;
     await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 });
 
-    // Wait for tables to load
-    await page.waitForSelector('table', { timeout: 10000 }).catch(() => {});
+    // Wait for table to be rendered by JS
+    await page.waitForSelector('table', { timeout: 15000 });
 
     const numbers = await page.evaluate(() => {
         const cells = document.querySelectorAll('table td, table th');
